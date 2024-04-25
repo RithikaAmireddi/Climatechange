@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        input[type="number"],
+        select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .eco-info {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .eco-info h3 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .eco-info p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Carbon Footprint Calculator</h2>
+
+        <p>Calculate your estimated annual carbon footprint based on your daily habits.</p>
+
+        <h4>Home Energy</h4>
+        <p>Average monthly electricity usage (kWh): <input type="number" id="electricity_use"></p>
+        <p>Fuel source for heating (select one): 
+            <select id="heating_source">
+                <option value="natural_gas">Natural Gas</option>
+                <option value="propane">Propane</option>
+                <option value="electric">Electric</option>
+                <option value="other">Other</option>
+            </select>
+        </p>
+        <p>Annual heating fuel usage (in units specific to your source): <input type="number" id="heating_fuel_use"></p>
+
+        <h4>Transportation</h4>
+        <p>How far do you commute (round trip) per day (miles/km)? <input type="number" id="commute_distance"></p>
+        <p>Miles per gallon (MPG) / Kilometers per liter (KPL) of your car (if applicable): <input type="number" id="car_efficiency"></p>
+        <p>How often do you use public transportation (select one): 
+            <select id="public_transport">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="occasionally">Occasionally</option>
+                <option value="never">Never</option>
+            </select>
+        </p>
+
+        <h4>Daily Habits</h4>
+        <p>How many times do you fly in a year? <input type="number" id="flights_per_year"></p>
+        <p>Estimated average distance of your flights (miles/km) - optional for more accurate calculation: <input type="number" id="flight_distance"></p>
+
+        <button onclick="calculateFootprint()">Calculate Footprint</button>
+
+        <p id="result"></p>
+
+        <div class="eco-info">
+            <h3>Calling all earth defenders!</h3>
+            <p>Ever wondered if your daily routine stacks up to the legendary Captain Eco? This nifty calculator will unveil your Eco-Shadow, measured in kilograms of CO2 (kg CO2). Don't be intimidated – it's not a villainous plot, but your annual contribution to greenhouse gasses.</p>
+            <p>Here's how your score measures up on the Eco-Hero Scale:</p>
+            <ul>
+                <li><strong>Eco-Titan (Under 2,000 kg CO2):</strong> Wowzer! Your footprint is lighter than a recycled aluminum can! You're saving the planet one eco-friendly choice at a time. Captain Eco himself would be proud!</li>
+                <li><strong>Eco-Protector (Between 2,000 and 4,000 kg CO2):</strong> You're on the right track, defender! A few tweaks to your routine can unlock your inner Eco-Titan.</li>
+                <li><strong>Eco-Curious (Above 4,000 kg CO2):</strong> Hey there, curious hero! This score means you might have a slightly bigger Eco-Shadow. But don't worry, with a few adjustments, you can become a superhero for our planet!</li>
+            </ul>
+            <p>How big is your Eco-Shadow? Let's translate it into super-powered facts:</p>
+            <ul>
+                <li>Planting a single tree can absorb a whopping tonne (that's 1,000 kg!) of CO2 in its lifetime. So, if your footprint is 4,000 kg CO2, planting 4 trees could be your Fortress of Sustainability!</li>
+                <li>Ditching your car for just 2 miles (3.2 km) a day (think shorter trips or a super-powered bike ride) can save almost 1 tonne of CO2 per year – that's like deflecting a meteor of greenhouse gas emissions!</li>
+            </ul>
+            <p>Remember, every action counts towards a greener future.</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateFootprint() {
+            // Get user input values
+            var electricityUse = parseFloat(document.getElementById("electricity_use").value);
+            var heatingSource = document.getElementById("heating_source").value;
+            var heatingFuelUse = parseFloat(document.getElementById("heating_fuel_use").value);
+            var commuteDistance = parseFloat(document.getElementById("commute_distance").value);
+            var carEfficiency = parseFloat(document.getElementById("car_efficiency").value);
+            var publicTransport = document.getElementById("public_transport").value;
+            var flightsPerYear = parseFloat(document.getElementById("flights_per_year").value);
+            var flightDistance = parseFloat(document.getElementById("flight_distance").value);
+
+            // Define conversion factors (if needed)
+            var milesToKm = 1.609; // 1 mile = 1.609 kilometers
+
+            // Calculate emissions based on user selection (example values, replace with actual data)
+            var electricityEmission = electricityUse * 0.538; // Average emissions for electricity usage (kg CO2 per kWh)
+            var heatingEmission = 0;
+            switch (heatingSource) {
+                case "natural_gas":
+                    heatingEmission = heatingFuelUse * 0.18; // Average emissions for natural gas (kg CO2 per therm)
+                    break;
+                case "propane":
+                    heatingEmission = heatingFuelUse * 2.3; // Average emissions for propane (kg CO2 per gallon)
+                    break;
+                case "electric":
+                    heatingEmission = electricityEmission; // Assuming electric heating uses grid electricity
+                    break;
+                case "other":
+                    heatingEmission = 0; // You can add your own emission factor for other sources
+                    break;
+            }
+            var commuteEmission = commuteDistance * ((carEfficiency > 0) ? (2.352 / carEfficiency) : 0); // Average emissions for commuting (kg CO2 per mile)
+            var publicTransportReduction = 0; // Assuming public transport has lower emissions (modify based on actual data)
+            if (publicTransport === "daily") {
+                publicTransportReduction = commuteEmission * 0.25; // Assuming 25% reduction with daily public transport use (adjust value)
+            } else if (publicTransport === "weekly") {
+                publicTransportReduction = commuteEmission * 0.1; // Assuming 10% reduction with weekly public transport use (adjust value)
+            }
+            var flightEmission = flightsPerYear * ((flightDistance > 0) ? (flightDistance * 0.257) : 0); // Average emissions for flying (kg CO2 per mile)
+
+            // Calculate total emissions
+            var totalEmission = electricityEmission + heatingEmission + commuteEmission - publicTransportReduction + flightEmission;
+
+            // Display the result
+            var resultElement = document.getElementById("result");
+            resultElement.textContent = "Your estimated annual carbon footprint is " + totalEmission.toFixed(2) + " kg CO2.";
+        }
+    </script>
+</body>
+</html>
+

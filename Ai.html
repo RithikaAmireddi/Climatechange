@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClimateChange</title>
+    <style>
+        /* Common styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0 20px;
+            background-color: #000000;
+            position: relative;
+            min-height: 100vh;
+            text-align: left; /* Ensure left alignment for body text */
+        }
+        header {
+            color: #ffffff;
+            padding: 20px 0;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .header-title {
+            margin-left: 20px;
+            font-family: 'Familjen Grotesk', sans-serif;
+        }
+        .header-links {
+            font-size: 16px;
+            text-align: right;
+            margin-right: 20px;
+        }
+        .header-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-family: 'Familjen Grotesk', sans-serif; 
+        }
+        .header-links a:hover {
+            color: #b03608;
+        }
+        /* Button container styles */
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-container a {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            background-color: transparent;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .button-container a:hover {
+            background-color: #ffa07a;
+            text-decoration: none;
+        }
+    </style>
+    <link href='https://fonts.googleapis.com/css?family=Familjen Grotesk' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">ClimateChange</h1>
+        <nav class="header-links">
+            <a href="destination_page.html">Home</a>
+            <a href="page2.html">My Shadow</a>
+            <a href="#fight.html">My Choices</a>
+        </nav>
+    </header>
+
+    <!-- Button container -->
+    <div class="button-container">
+        <a href="fight.html">Empower</a>
+        <span class="line"></span> <!-- Line between links -->
+        <a href="Ai.html">Master Shiro</a>
+        <div class="line"></div> <!-- Line under links -->
+    </div>
+
+    <!-- Chat container -->
+    <div id="chat-container" style="margin-top: 50px; padding: 10px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; width: 600px; height: 400px; overflow-y: scroll; margin: 0 auto;">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div style="text-align: center;">
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        // JavaScript code for chat functionality
+        function getResponse(userInput) {
+            var responses = [
+                "Hello! How can I assist you today?",
+                "Hi there! What can I do for you?",
+                "Hey! What's on your mind?",
+                "Greetings! How may I help you?"
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            if (userInput.trim() === "") return;
+
+            var chatContainer = document.getElementById("chat-container");
+
+            // Display user message
+            var userMessageElement = document.createElement("div");
+            userMessageElement.className = "user-message";
+            userMessageElement.innerHTML = "<strong>You:</strong> " + userInput;
+            chatContainer.appendChild(userMessageElement);
+
+            // Get and display ChatGuru's response
+            var chatbotResponse = getResponse(userInput);
+            var chatbotMessageElement = document.createElement("div");
+            chatbotMessageElement.className = "chatbot-message";
+            chatbotMessageElement.innerHTML = "<strong>Master Shiro:</strong> " + chatbotResponse;
+            chatContainer.appendChild(chatbotMessageElement);
+
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Clear user input field
+            document.getElementById("user-input").value = "";
+        }
+    </script>
+</body>
+</html>
+

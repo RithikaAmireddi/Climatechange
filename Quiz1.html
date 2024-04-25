@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myth vs. Reality: Environmental Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .answer {
+            margin-bottom: 15px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        .result {
+            text-align: left;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .explanation {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Myth vs. Reality: Environmental Quiz</h1>
+        <p>Test your knowledge about common environmental myths and misconceptions. Click the button below to begin the quiz.</p>
+        <button id="start-quiz">Start Quiz</button>
+
+        <div id="quiz-content" style="display: none;"></div>
+
+        <div id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Leaving a light on in an empty room uses the same amount of energy as turning it off?",
+                answer: "Myth",
+                explanation: "Leaving lights on in an empty room consumes unnecessary energy, so it's important to turn them off when not in use."
+            },
+            {
+                question: "Recycling is the most important way to reduce your environmental impact?",
+                answer: "Myth",
+                explanation: "While recycling is important, reducing consumption and reusing items are even more effective ways to minimize environmental impact."
+            },
+            {
+                question: "Using a single plastic bag each time you shop is more eco-friendly than reusable bags?",
+                answer: "Myth",
+                explanation: "Single-use plastic bags contribute significantly to pollution and take a long time to decompose, whereas reusable bags are more environmentally friendly."
+            },
+            {
+                question: "Taking shorter showers conserves water?",
+                answer: "Reality",
+                explanation: "Shortening shower times reduces water usage, which is essential for water conservation."
+            },
+            {
+                question: "Composting food scraps attracts harmful pests?",
+                answer: "Myth",
+                explanation: "Properly managed composting does not attract pests and is an effective way to reduce organic waste."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const startQuizButton = document.getElementById("start-quiz");
+        const quizContent = document.getElementById("quiz-content");
+        const resultDiv = document.getElementById("result");
+
+        startQuizButton.addEventListener("click", function() {
+            startQuizButton.style.display = "none";
+            displayQuestion();
+        });
+
+        function displayQuestion() {
+            if (currentQuestion < questions.length) {
+                quizContent.style.display = "block";
+                const current = questions[currentQuestion];
+                const questionElement = document.createElement("div");
+                questionElement.classList.add("question");
+                questionElement.innerHTML = `
+                    <p class="question">${current.question}</p>
+                    <div class="answer">
+                        <input type="radio" name="answer" value="myth" id="myth-option">
+                        <label for="myth-option">Myth</label>
+                    </div>
+                    <div class="answer">
+                        <input type="radio" name="answer" value="reality" id="reality-option">
+                        <label for="reality-option">Reality</label>
+                    </div>
+                    <button id="submit-answer">Submit Answer</button>
+                    <div class="explanation" style="display: none;"></div>
+                `;
+                quizContent.innerHTML = "";
+                quizContent.appendChild(questionElement);
+
+                const submitButton = document.getElementById("submit-answer");
+                submitButton.addEventListener("click", checkAnswer);
+            }
+        }
+
+        function checkAnswer() {
+            const selectedOption = document.querySelector("input[name='answer']:checked");
+            if (!selectedOption) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            const current = questions[currentQuestion];
+            const explanationElement = document.querySelector(".explanation");
+            if (selectedOption.value === current.answer.toLowerCase()) {
+                score++;
+                explanationElement.classList.add("correct");
+            } else {
+                explanationElement.classList.add("incorrect");
+            }
+            explanationElement.textContent = current.explanation;
+            explanationElement.style.display = "block";
+
+            const nextButton = document.createElement("button");
+            nextButton.textContent = "Next Question";
+            nextButton.addEventListener("click", function() {
+                currentQuestion++;
+                displayQuestion();
+            });
+
+            // Remove previous submit button and add the next question button
+            const submitButton = document.getElementById("submit-answer");
+            submitButton.parentNode.replaceChild(nextButton, submitButton);
+        }
+
+        function displayResult() {
+        quizContent.style.display = "none";
+        resultDiv.style.display = "block";
+        const scorePercentage = (score / questions.length) * 100;
+        resultDiv.innerHTML = `
+            <p class="result">Your score: ${score} out of ${questions.length}</p>
+            <p class="result">Percentage: ${scorePercentage}%</p>
+        `;
+    }
+    </script>
+
+<div class="result">
+    <h2>Results</h2>
+
+    <p>5 out of 5 Correct: Planetary Protector</p>
+    <p>You've aced the quiz! With knowledge like yours, you're a true planetary protector, just like Captain Planet leading the charge for a healthy Earth!</p>
+    
+    <p>3-4 out of 5 Correct: Eco-Avenger</p>
+    <p>Great job! You're a capable Eco-Avenger fighting for environmental justice. Keep learning and using your knowledge to make a difference, one action at a time!</p>
+    
+    <p>1-2 out of 5 Correct: Recycling Recruit</p>
+    <p>Hey there, Recycling Recruit! You're on your way to becoming an eco-warrior. Keep practicing and learning, and you'll be a sustainability champion in no time!</p>
+    
+    <p>0 out of 5 Correct: New Recruit</p>
+    <p>Everyone starts somewhere, New Recruit! This quiz is your training ground. Don't be discouraged, keep learning about the environment and you'll be saving the day in no time!</p>
+    </div>
+</body>
+</html>
+
+

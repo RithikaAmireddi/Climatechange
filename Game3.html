@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Size Image with Scrolling</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .image-container {
+      overflow: auto; /* Enable scrolling if needed */
+      width: 100vw; /* Set container width to 100% viewport width */
+      height: 100vh; /* Set container height to 100% viewport height */
+    }
+    img {
+      width: 100%; /* Scale image to fit container width */
+      height: auto; /* Maintain aspect ratio */
+    }
+  </style>
+</head>
+<body>
+  <div class="image-container">
+    <img src="page3.jpg" alt="Image from PDF">
+  </div>
+</body>
+</html>
+
+

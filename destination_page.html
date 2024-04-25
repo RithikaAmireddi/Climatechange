@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Change</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0 20px;
+            background-color: #000000;
+            position: relative;
+            min-height: 100vh;
+        }
+        header {
+         color: #ffffff;
+         padding: 20px 0; /* Increased padding-top */
+         display: flex; 
+         justify-content: space-between; 
+         align-items: center;
+        }
+
+        .header-title {
+         margin-left: 20px; /* Add left margin to the header title */
+         font-family: 'Familjen Grotesk', sans-serif;
+        }
+
+        .container {  
+            margin: 20px auto;
+        }
+
+        /* Style for the full-width peach container */
+        .peach-container {
+            background-color: #FFDAB9; /* Peach background color */
+            padding: 20px; /* Add padding for spacing */
+            border-radius: 10px; /* Optional: Add rounded corners */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        h2 {
+            color: #000000; 
+        }
+
+        h2:first-of-type {
+            font-size: 30px; /* Corrected font size declaration */
+        }
+
+        p {
+            line-height: 1.6;
+            color: #ffffff;
+        }
+
+        .header-links {
+            font-size: 16px;
+            text-align: right;
+            margin-right: 20px; /* Added margin-right property */
+        }
+
+        .header-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-family: 'Familjen Grotesk', sans-serif; 
+        }
+
+        .header-links a:hover {
+            color: #b03608; /* Change the color to the desired color when hovered */
+        }
+
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: auto;
+        }
+
+        .mySlides {
+            display: none;
+            width: 100%;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* Your CSS styles for the slideshow */
+        .mySlides {
+            display: none;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(177, 97, 97, 0.8);
+        }
+
+        .text {
+            color: #d24040;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .peach-text {
+            color: #000000;
+        }
+
+        .explore-button {
+            display: flex; /* Use flexbox */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            width: 200px;
+            margin: auto;
+            margin-left: 30%;
+            padding: 10px; /* Adjusted padding */
+            background-color: #b03608;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .explore-button {
+            margin-top: 400px !important; /* Increased margin-top with !important */
+        }
+
+        .explore-button:hover {
+            background-color: #0056b3;
+        }
+
+        img.small-image {
+            width: 800px; /* Adjusted width */
+            float: left; /* Add this line to make the image float left */
+            margin-right: 20px; /* Add some margin to the right */
+        }
+
+        /* New styles for absolute positioning */
+        .text-box-container {
+            position: relative; /* Establish a relative positioning context */
+            float: left; /* Add this line to make the text box float left */
+        }
+
+        .text-box {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            border-radius: 5px;
+            height: 100px;
+            width: 500px;
+            position: absolute; /* Make the text box absolutely positioned */
+            top: 90px; /* Align to the top of the container */
+            left: -30px; /* Move 20px from the left edge */
+        }
+
+        .text-box textarea {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            border: none;
+            background-color: transparent;
+        }
+
+        /* CSS Styles for expandable box-square containers */
+        .circle-container {
+            text-align: left; /* Align to the right */
+            margin-right: 20px; /* Add some margin to the right */
+            clear: both; /* Add this line to clear the floats */
+        }
+
+        .box-square {
+            width: 600px; /* Wider width */
+            height: 100px; /* Adjust the height as needed */
+            background-color: #e69b00;
+            color: white;
+            display: inline-block;
+            cursor: pointer;
+            margin: 20px;
+            transition: all 0.3s ease;
+            position: relative; /* Ensure relative positioning */
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+            clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%);
+            overflow: hidden; /*box Hide overflow content */
+        }
+
+
+        .expanded-content {
+            display: none;
+    position: absolute;
+    top: 0;
+    left: 20px; /* Adjusted left padding to leave space on the left */
+    width: calc(100% - 20px); /* Adjusted width to compensate for left padding */
+    height: 100%;
+    padding: 20px; /* Keep padding consistent for top, right, and bottom */
+    box-sizing: border-box;
+    overflow-y: auto; /* Enable scrolling if content exceeds box height */
+    text-align: left; /* Align text to the left */
+        }
+
+
+        box-square.active {
+            width: 900px; /* Wider width when active */
+            height: 100px; /* Adjust the height as needed when active */
+        }
+
+
+        .box-square.active .content {
+            display: none; /* Hide heading when active */
+        }
+        .box-square.active .expanded-content {
+            display: block;
+        }
+        ul {
+            color: #ffffff; 
+        }
+
+        .box-square h2 {
+            font-size: 24px; /* Change the font size for headings */
+        }
+    </style>
+    <link href='https://fonts.googleapis.com/css?family=Familjen Grotesk' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Climate Change</h1>
+        <nav class="header-links">
+            <a href="destination_page.html">Home</a>
+            <a href="page2.html">My Shadow</a>
+            <a href="fight.html">My Choices</a>
+        </nav>
+    </header>
+
+    <div class="slideshow-container">
+        <!-- Slideshow content -->
+        <div class="mySlides fade">
+            <img src="image1.jpg" style="width:100%">
+        </div>
+        <div class="mySlides fade">
+            <img src="image2.jpg" style="width:100%">
+        </div>
+        <div class="mySlides fade">
+            <img src="image3.jpg" style="width:100%">
+        </div>
+        <div class="mySlides fade">
+            <img src="image4.jpg" style="width:100%">
+        </div>
+        <div class="mySlides fade">
+            <img src="image5.jpg" style="width:100%">
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <div class="container" style="margin-left: 20px; padding-right: 20%;">
+        <h2>Understanding<br> Climate Change</h2>
+        <p>Climate change refers to a long-term <span style="color: #FFE5B4">alteration</span> in <span style="color: #FFE5B4">weather patterns</span> that define a particular location. It is measured over <span style="color: #FFE5B4">decades or even centuries</span>, unlike the short-term changes in weather that we experience daily. While climate change has always been a natural phenomenon, its current pace is much faster <span style="color: #FFE5B4">due to human activities</span>.</p>
+
+        <p>The burning of <span style="color: #FFE5B4">fossil fuels</span>, such as coal, oil, and gas, releases <span style="color: #FFE5B4">greenhouse gases</span>, particularly <span style="color: #FFE5B4">carbon dioxide</span>, into the atmosphere. These gases act like a blanket, trapping heat from the sun and causing the planet to <span style="color: #FFE5B4">warm up</span>.</p>
+
+        <p><span style="color: #FFE5B4">Climate change is happening at an alarming rate, driven by human activity.</span> Burning fossil fuels releases greenhouse gases that trap heat, causing <span style="color: #FFE5B4">global temperatures to rise faster than ever before in the past 2,000 years</span>. The Earth's surface is now <span style="color: #FFE5B4">1.1°C warmer</span> than pre-industrial times, and the last decade was the hottest on record. This warming isn't just about temperature - it's causing a cascade of effects like droughts, floods, wildfires, and rising sea levels, threatening our planet's health.</p>
+
+        <p>The consequences of climate change are significant, and the Earth's climate is already changing. The severity of this change depends on the amount of greenhouse gas emissions we keep emitting. If we significantly reduce emissions, we can limit global warming. However, without major reductions, we could face <span style="color: #FFE5B4">several degrees of warming</span> by the end of this century.</p>
+
+        <p>This rapid warming is unlike anything Earth has experienced before, and the evidence is clear - <span style="color: #FFE5B4">temperatures are rising</span>, <span style="color: #FFE5B4">sea levels are climbing</span>, and <span style="color: #FFE5B4">glaciers are melting</span>. These trends are confirmed by independent research all over the world. The rise in temperature has caused <span style="color: #FFE5B4">extreme weather patterns</span> such as heatwaves, droughts, floods, and hurricanes. These changes will have a significant impact on our food and water supplies, our health, and our economies.</p>
+
+        <p><span style="color: #FFE5B4">The bottom line is that Earth's climate is changing at an alarming rate, primarily due to human actions.</span> However, we can still slow down this process and protect our planet for future generations by taking steps to reduce greenhouse gas emissions.</p>
+    </div>
+
+    <div class="peach-container">
+        <div class="circle-container">
+            <p class="peach-text">Climate change isn't a slow burn anymore - it's a raging fire. The rapid escalation of extreme weather events like wildfires, hurricanes, and heatwaves is shocking.</p>
+            <p class="peach-text">The culprit behind this climate chaos? Burning fossil fuels. These activities are pumping greenhouse gases into the atmosphere at an alarming rate. These gases act like a heat trap, causing global temperatures to soar.</p>
+            <p class="peach-text">The evidence is undeniable. The Intergovernmental Panel on Climate Change (IPCC), a leading international scientific body, has concluded that human activity is the main driver of the observed warming since the mid-20th century. </p>
+            <p class="peach-text">**Facts:**</p>
+            <ul>
+                <li class="peach-text"><b>Global temperatures have risen by roughly 2 degrees Fahrenheit (1 degree Celsius) since the late 19th century, coinciding with the rise in greenhouse gas emissions.</b></li>
+                <li class="peach-text"><b>Ice core data paints a worrying picture - glaciers and ice sheets are melting at alarming rates, contributing to rising sea levels.</b></li>
+                <li class="peach-text"><b>Over 90% of the excess heat trapped by greenhouse gases is absorbed by the oceans, disrupting marine ecosystems and currents.</b></li>
+                <li class="peach-text"><b>Extreme weather events like heatwaves, droughts, floods, and wildfires are becoming more frequent and severe, exactly as climate models predicted.</b></li>
+            </ul>
+            <p class="peach-text">This isn't just a climate shift; it's a human-caused crisis. We need global cooperation, aggressive emissions reduction strategies, and adaptation measures to mitigate the worst impacts.</p>
+            <!--<!-- Box 1 -->
+            <div class="box-square" id="box1">
+                <div class="content">
+                    <h2>More extreme weather events</h2>
+                </div>
+                <div class="expanded-content">
+                <p>Heat waves, droughts, floods, and storms are expected to become more common and intense. This is already being observed around the world, and is expected to worsen as the planet warms.</p>
+            </div>
+        </div>
+        <!-- Add more square boxes if needed -->
+        <div class="box-container">
+            <div class="box-square" id="box2">
+              <div class="content">
+                <h2>Alarm Bells Ringing: Climate Change Accelerates</h2>
+              </div>
+              <div class="expanded-content">
+                <p>As the Earth warms, ice sheets and glaciers melt, causing sea levels to rise. This threatens coastal communities around the world, and could displace millions of people.</p>
+              </div>
+            </div>
+            <div class="box-square" id="box1">
+                <div class="content">
+                    <h2>Changes in precipitation patterns</h2>
+                </div>
+                <div class="expanded-content">
+                <p>Some areas will experience more frequent and intense rainfall, while others will become drier. This can lead to water shortages, agricultural disruptions, and ecosystem damage.</p>
+            </div>
+        </div>
+        <div class="box-square" id="box1">
+            <div class="content">
+                <h2>Ocean acidification</h2>
+            </div>
+            <div class="expanded-content">
+            <p>The oceans absorb about a quarter of the carbon dioxide released into the atmosphere. This makes the oceans more acidic, which harms marine life, including shellfish, coral reefs, and plankton.</p>
+        </div>
+    </div>
+    <div class="box-square" id="box1">
+        <div class="content">
+            <h2>Loss of biodiversity</h2>
+        </div>
+        <div class="expanded-content">
+        <p>Climate change is already causing species to move to cooler areas or adapt to changing environments. However, some species will not be able to adapt and will become extinct.</p>
+    </div>
+</div>
+          </div>
+        </div>
+
+        </div>
+    </div>
+
+    <!-- Square containers -->
+    <div class="circle-container">
+        <img src="frog1.jpg" alt="Frog" class="small-image">
+        <!-- Text box container -->
+        <div class="text-box-container">
+            <div class="text-box">
+                <textarea rows="4" cols="30" readonly>Whew! Climate change is a daunting topic, isn't it? But fear not, for I, Eldo, am here to be your guide. Every hero needs a good origin story! Click "Explore in Depth" to understand it and become a champion for the Earth!</textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <a href="page2.html" class="explore-button">Explore in Depth</a>
+
+    <!-- About This Website Section -->
+    <div style="background-color: #000000; color: #ffffff; padding: 20px;">
+        <h2 style="color: #ffffff;">About This Website</h2>
+        <p>Climate change is the defining challenge of our generation. This website is your one-stop shop for understanding the issue, measuring your impact, and taking meaningful action.</p>
+
+        <p>Our goal is to empower you. We break down complex environmental issues into clear, concise information. By understanding the science and impacts of climate change, you'll be equipped to make informed decisions. We also provide tools and resources to calculate your environmental footprint, so you can identify areas for improvement.</p>
+
+        <p>This website is a hub for inspiration. Explore practical tips and resources to integrate sustainability into your daily life. We believe that even small changes on an individual level can create a significant positive impact when combined.</p>
+
+        <p>Building on a strong foundation, this website complements resources like Greta Thunberg's climate activism, the Intergovernmental Panel on Climate Change's scientific assessments, and global climate agreements like the Paris Agreement. Together, we can create a more sustainable future for our planet.</p>
+    </div>
+
+    <<script>
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 6000); // Change image every 6 seconds
+        }
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // JavaScript code for expandable box-square containers
+        document.addEventListener("DOMContentLoaded", function() {
+            const boxes = document.querySelectorAll(".box-square");
+            boxes.forEach(box => {
+                box.addEventListener("click", function() {
+                    this.classList.toggle("active");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
